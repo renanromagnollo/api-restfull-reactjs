@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useFetch } from "./hooks/useFetch";
 
 type RepositoryProps = {
@@ -8,11 +6,12 @@ type RepositoryProps = {
 };
 
 function App() {
-  const { data: repositories } = useFetch<RepositoryProps[]>(
-    "https://api.github.com/users/renanromagnollo/repos"
+  const { data: repositories, isFetching } = useFetch<RepositoryProps[]>(
+    "users/renanromagnollo/repos"
   );
   return (
     <ul>
+      {isFetching && <p>Carregando...</p>}
       {repositories?.map((repo) => {
         return (
           <li key={repo.full_name}>
